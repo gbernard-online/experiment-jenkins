@@ -3,7 +3,9 @@ pipeline {
     options { skipDefaultCheckout(true) }
     stages {
         stage('clone') {
-            checkout scm
+            steps {
+                checkout scm
+            }
         }
         stage('build') {
             steps {
