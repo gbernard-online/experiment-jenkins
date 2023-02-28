@@ -6,10 +6,5 @@ pipeline {
                 sh 'cat /etc/nginx/conf.d/default.conf'
             }
         }
-        stage('clean') {
-            steps {
-                cleanWs()
-            }
-        }
     }
 }
