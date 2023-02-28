@@ -1,0 +1,7 @@
+.editorconfig
+.groovylintrc.json
+main.c
+Jenkinsfile
+jenkins.webp
+README.md
+.files.txt
