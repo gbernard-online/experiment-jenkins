@@ -1,6 +1,10 @@
 pipeline {
     agent { docker { image 'nginx:1.22.1-alpine' } }
+    options { skipDefaultCheckout(true) }
     stages {
+        stage('clone') {
+            checkout scm
+        }
         stage('build') {
             steps {
                 sh 'cat /etc/nginx/conf.d/default.conf'
