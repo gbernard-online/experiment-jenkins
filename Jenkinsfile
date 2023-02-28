@@ -1,6 +1,9 @@
 node {
     stage('build') {
-        git branch: 'main', credentialsId: 'jenkins', url: 'git@github.com:gbernard-online/experiment-jenkins.git'
+        docker.image('nginx:1.22.1-alpine').withRun('-p 80:80') { c ->
+            sh 'docker ps'
+            sh 'curl local'
+        }
     }
     stage('clean') {
         cleanWs()
