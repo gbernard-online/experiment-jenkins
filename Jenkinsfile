@@ -1,6 +1,6 @@
 pipeline {
     agent { docker { image 'nginx:1.22.1-alpine' } }
-    options { skipDefaultCheckout(true) }
+    // options { skipDefaultCheckout(true) }
     stages {
         // stage('clone') {
         //     steps {
