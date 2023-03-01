@@ -9,12 +9,11 @@ node {
         checkout scm
     }
 
-    def version = "build-$date"
     stage('build') {
-        sh "docker buildx build --tag=alpine-gcc:$version ."
+        sh "docker buildx build --tag=alpine-gcc:$date ."
     }
 
-    def image = docker.image("alpine-gcc:$version")
+    def image = docker.image("alpine-gcc:$date")
     stage('push') {
         docker.withRegistry('https://registry.virtware.top', 'registry.virtware.top') {
             image.push()
