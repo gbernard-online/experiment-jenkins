@@ -10,7 +10,7 @@ node {
 
     stage('build') {
         // docker.build("alpine-gcc:build-${env.BUILD_ID}", '.')
-        sh 'docker buildx build --tag=alpine-gcc .'
+        sh "docker buildx build --tag=alpine-gcc:build-${env.BUILD_ID} ."
     }
 
     def image = docker.image("alpine-gcc:build-${env.BUILD_ID}")
