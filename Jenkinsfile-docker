@@ -18,6 +18,8 @@ node {
             sh 'docker exec alpine pwd'
             sh 'docker exec alpine ls -la'
             sh 'docker exec alpine cat README.md'
+            sh 'docker exec alpine gcc -o main main'
+            sh 'docker exec alpine ./main'
         }
     }
 }
