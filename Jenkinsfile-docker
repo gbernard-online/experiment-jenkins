@@ -1,7 +1,8 @@
 node {
+    stage('clean') {
+        cleanWs()
+    }
     stage('clone') {
-        steps {
-            checkout scm
-        }
+        checkout scm
     }
 }
