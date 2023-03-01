@@ -12,8 +12,8 @@ node {
     stage('test') {
         docker.image('alpine-gcc').withRun('--name=alpine', 'yes') { c ->
             sh 'docker exec alpine hostname'
-            sh 'ls'
-            sh 'pwd'
+            sh 'docker exec alpine pwd'
+            sh 'docker exec alpine ls -la'
         }
     }
 }
