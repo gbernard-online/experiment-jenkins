@@ -7,13 +7,13 @@ node {
         checkout scm
     }
     def image = stage('build') {
-        docker.build("alpine-gcc:${env.BUILD_ID}", '.')
-        // sh 'docker buildx build --tag=alpine-gcc .'
+        // docker.build("alpine-gcc:build-${env.BUILD_ID}", '.')
+        sh 'docker buildx build --tag=alpine-gcc .'
     }
     stage('push') {
         docker.withRegistry('https://registry.virtware.top', 'registry.virtware.top') {
-            image.push 'latest'
             image.push()
+            image.push('latest')
         }
     }
     stage('test') {
