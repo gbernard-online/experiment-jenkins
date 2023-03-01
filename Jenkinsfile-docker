@@ -13,6 +13,7 @@ node {
         docker.image('alpine-gcc').withRun(
         '--hostname=alpine.local --name=alpine --user=1000:1000 --volume=$PWD:/jenkins --workdir=/jenkins',
         'yes') { c ->
+            sh 'ls $PWD'
             sh 'docker exec alpine hostname'
             sh 'docker exec alpine id'
             sh 'docker exec alpine pwd'
