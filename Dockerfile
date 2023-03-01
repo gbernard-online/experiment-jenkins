@@ -1,5 +1,5 @@
 FROM alpine:3.17.2
 LABEL maintainer=ghislain.bernard@gmail.com
 
-RUN adduser jenkins
+RUN adduser --disabled-password jenkins
 RUN apk add --no-cache gcc
