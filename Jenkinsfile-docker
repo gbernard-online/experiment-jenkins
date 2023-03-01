@@ -14,10 +14,12 @@ node {
         '--hostname=alpine.local --name=alpine --user=1000:1000 --volume=$PWD:/jenkins --workdir=/jenkins',
         'yes') { c ->
             sh 'ls $PWD'
+            sh 'cat README.md'
             sh 'docker exec alpine hostname'
             sh 'docker exec alpine id'
             sh 'docker exec alpine pwd'
             sh 'docker exec alpine ls -la'
+            sh 'docker exec alpine cat README.md'
         }
     }
 }
