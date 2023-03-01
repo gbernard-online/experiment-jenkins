@@ -14,9 +14,9 @@ pipeline {
         }
         stage('build') {
             steps {
+                sh 'id'
                 sh 'pwd'
                 sh 'ls -la'
-                sh 'cat /etc/nginx/conf.d/default.conf'
             }
         }
     }
