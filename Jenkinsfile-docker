@@ -6,13 +6,18 @@ node {
     stage('clone') {
         checkout scm
     }
-    stage('build') {
-        sh 'docker buildx build --tag=alpine-gcc .'
+    def image = stage('build') {
+        docker.build('alpine-gcc:${env.BUILD_ID}', '.')
+        // sh 'docker buildx build --tag=alpine-gcc .'
     }
     stage('push') {
+        docker.withRegistry('https://registry.virtware.top', 'registry.virtware.top') {
+            image.push 'latest'
+            image.push()
+        }
     }
     stage('test') {
-        docker.image('alpine-gcc').withRun('--hostname=alpine.local --name=alpine --user=1000:1000 ' +
+        image.withRun('--hostname=alpine.local --name=alpine --user=1000:1000 ' +
         '--volume=/opt/docker/jenkins/data/workspace/experiment-docker:/jenkins --workdir=/jenkins',
         'yes') { c ->
             sh 'docker exec alpine hostname'
