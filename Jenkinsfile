@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'nginx:1.22.1-alpine' } }
+    agent { docker { image 'registry.virtware.top/alpine-gcc' } }
     options { skipDefaultCheckout(true) }
     stages {
         stage('clean') {
@@ -17,6 +17,8 @@ pipeline {
                 sh 'id'
                 sh 'pwd'
                 sh 'ls -la'
+                sh 'gcc -o main main.c'
+                sh './main'
             }
         }
     }
