@@ -9,7 +9,8 @@ node {
         sh 'docker buildx build --tag=alpine-gcc .'
     }
     stage('test') {
-        docker.image('alpine-gcc').withRun('') { c ->
+        docker.image('alpine-gcc').withRun('--name=alpine') { c ->
+            sh 'docker exec alpine hostname'
             sh 'ls'
             sh 'pwd'
         }
