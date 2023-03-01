@@ -5,4 +5,8 @@ node {
     stage('clone') {
         checkout scm
     }
+    stage('build') {
+        sh 'docker build --tag=alpine-gcc .'
+    }
+
 }
