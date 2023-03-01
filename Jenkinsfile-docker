@@ -6,7 +6,7 @@ node {
         checkout scm
     }
     stage('build') {
-        sh 'docker build --tag=alpine-gcc .'
+        sh 'docker buildx build --tag=alpine-gcc .'
     }
 
 }
