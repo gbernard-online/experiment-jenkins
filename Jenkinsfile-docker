@@ -8,5 +8,4 @@ node {
     stage('build') {
         sh 'docker buildx build --tag=alpine-gcc .'
     }
-
 }
