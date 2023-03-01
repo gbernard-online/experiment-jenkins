@@ -11,7 +11,7 @@ node {
     }
     stage('test') {
         docker.image('alpine-gcc').withRun(
-        '--hostname=alpine.local --name=alpine --user=1000:1000 --volume=$PWD:/jenkins --workdir=/jenkins',
+        '--hostname=alpine.local --name=alpine --volume=/:/jenkins --workdir=/jenkins',
         'yes') { c ->
             sh 'ls $PWD'
             sh 'cat README.md'
