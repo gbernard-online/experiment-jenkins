@@ -11,6 +11,7 @@ node {
     stage('test') {
         docker.image('alpine-gcc').withRun('') { c ->
             sh 'ls'
+
             sh 'pwd'
         }
     }
