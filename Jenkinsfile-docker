@@ -10,7 +10,7 @@ node {
         sh 'docker buildx build --tag=alpine-gcc .'
     }
     stage('test') {
-        docker.image('alpine-gcc').withRun('--hostname=alpine.local --name=alpine --username=1000:1000 ' +
+        docker.image('alpine-gcc').withRun('--hostname=alpine.local --name=alpine --user=1000:1000 ' +
         '--volume=/opt/docker/jenkins/data/workspace/experiment-docker:/jenkins --workdir=/jenkins',
         'yes') { c ->
             sh 'docker exec alpine hostname'
