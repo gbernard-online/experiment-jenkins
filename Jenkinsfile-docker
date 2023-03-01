@@ -1,2 +1,12 @@
 node {
+    stage('clean') {
+        steps {
+            cleanWs()
+        }
+    }
+    stage('clone') {
+        steps {
+            checkout scm
+        }
+    }
 }
