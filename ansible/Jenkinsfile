@@ -5,6 +5,7 @@ node {
 
     stage('run') {
         dir('ansible') {
+            ansiblePlaybook colorized: true, inventory 'hosts', playbook: 'playbook/empty.yml'
         }
     }
 }
