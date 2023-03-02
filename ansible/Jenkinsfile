@@ -2,4 +2,9 @@ node {
     stage('clone') {
         checkout scm
     }
+
+    stage('run') {
+        dir('ansible') {
+        }
+    }
 }
