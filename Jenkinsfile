@@ -14,11 +14,6 @@ pipeline {
             }
         }
         stage('build') {
-            post {
-                always {
-                    mail body: 'Test', subject: 'Test Email', to: 'ghislain.bernard@gmail.com'
-                }
-            }
             steps {
                 sh 'id'
                 sh 'pwd'
