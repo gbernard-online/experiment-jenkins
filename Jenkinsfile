@@ -1,6 +1,11 @@
 pipeline {
     agent { docker { image 'registry.virtware.top/alpine-gcc' } }
     options { skipDefaultCheckout(true) }
+    post {
+        always {
+            mail body: 'Test', subject: 'Test Email', to: 'ghislain.bernard@gmail.com'
+        }
+    }
     stages {
         stage('clean') {
             steps {
