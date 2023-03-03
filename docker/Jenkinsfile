@@ -17,7 +17,7 @@ node {
     stage('push') {
         docker.withRegistry('https://registry.virtware.top', 'registry.virtware.top') {
             image.push()
-            image.push('latest')
+            image.push 'latest'
         }
     }
 
