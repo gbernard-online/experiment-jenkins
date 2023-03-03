@@ -10,7 +10,6 @@ pipeline {
         stage('clone') {
             steps {
                 checkout scm
-                sh 'false'
             }
         }
         stage('build') {
