@@ -29,5 +29,8 @@ pipeline {
                 sh 'echo ' + env.BRANCH_NAME
             }
         }
+        stage('archive') {
+            archiveArtefacts artifacts: 'Jenkinsfile'
+        }
     }
 }
