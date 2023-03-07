@@ -30,7 +30,7 @@ pipeline {
             }
         }
         stage('archive') {
-            archiveArtefacts artifacts: 'Jenkinsfile'
+            archiveArtifacts artifacts: 'Jenkinsfile'
         }
     }
 }
