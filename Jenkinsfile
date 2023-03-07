@@ -24,7 +24,7 @@ pipeline {
                 sh './main'
             }
         }
-        stage('echo') {
+        stage('notify') {
             steps {
                 sh 'echo ' + env.BRANCH_NAME
             }
