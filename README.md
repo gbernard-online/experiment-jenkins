@@ -2,5 +2,3 @@
 
 > MIT License  
 > ghislain.bernard@gmail.com
-
-MAIN and DEVELOP branches
