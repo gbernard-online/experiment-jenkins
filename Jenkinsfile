@@ -1,6 +1,9 @@
 pipeline {
     agent { docker { image 'registry.virtware.top/alpine-gcc' } }
-    options { skipDefaultCheckout() }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "5"))
+        skipDefaultCheckout()
+    }
     stages {
         stage('clean') {
             steps {
