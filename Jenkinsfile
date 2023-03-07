@@ -21,5 +21,10 @@ pipeline {
                 sh './main'
             }
         }
+        stage('echo') {
+            steps {
+                sh 'echo ' + env.BRANCH_NAME
+            }
+        }
     }
 }
