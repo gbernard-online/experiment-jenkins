@@ -1,0 +1,103 @@
+#!/bin/bash
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die "${BASH_SOURCE[0]}" $LINENO
+shopt -s lastpipe || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+code --version || die "${BASH_SOURCE[0]}" $LINENO
+jq --version || die "${BASH_SOURCE[0]}" $LINENO
+type -p sponge || die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+dirname "${BASH_SOURCE[0]}" | read -r BASH_SOURCE_PATH || die "${BASH_SOURCE[0]}" $LINENO
+
+[ -d "$HOME/.config/Code/User" ] || mkdir --parents --verbose "$HOME/.config/Code/User" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+[ -r "$HOME/.config/Code/User/settings.json" ] || echo '{}' >"$HOME/.config/Code/User/settings.json" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+code --force --install-extension=dracula-theme.theme-dracula || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=editorconfig.editorconfig || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=esbenp.prettier-vscode || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=irongeek.vscode-env || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=medo64.render-crlf || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=mhutchie.git-graph || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=pkief.material-icon-theme || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=richie5um2.vscode-sort-json || die "${BASH_SOURCE[0]}" $LINENO
+code --force --install-extension=tomoki1207.pdf || die "${BASH_SOURCE[0]}" $LINENO
+
+cat "$HOME/.config/Code/User/settings.json" "$BASH_SOURCE_PATH/code.json" | jq --slurp '.[0] * .[1]' \
+| prettier --parser=json-stringify | sponge "$HOME/.config/Code/User/settings.json" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+for option in "$@" ; do
+
+  case $option in
+
+    c)
+      code --force --install-extension=ms-vscode.cpptools || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=vadimcn.vscode-lldb || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    go)
+      code --force --install-extension=golang.go || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    jenkins)
+      code --force --install-extension=nicolasvuillamy.vscode-groovy-lint || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    markdown)
+      code --force --install-extension=asciidoctor.asciidoctor-vscode || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=marp-team.marp-vscode || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=trond-snekvik.simple-rst || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=trond-snekvik.simple-rst || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=yzhang.markdown-all-in-one || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    python)
+      code --force --install-extension=ms-python.python || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    remote)
+      code --force --install-extension=ms-vscode-remote.remote-containers || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=ms-vscode-remote.remote-ssh || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    rust)
+      code --force --install-extension=bungcip.better-toml || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=vadimcn.vscode-lldb || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=rust-lang.rust-analyzer || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=serayuzgur.crates || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    symfony)
+      code --force --install-extension=junstyle.php-cs-fixer || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=mblode.twig-language || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=shevaua.phpcs || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+    typescript)
+      code --force --install-extension=bradlc.vscode-tailwindcss || die "${BASH_SOURCE[0]}" $LINENO
+      code --force --install-extension=dbaeumer.vscode-eslint || die "${BASH_SOURCE[0]}" $LINENO
+      ;;
+
+    *) die "${BASH_SOURCE[0]}" $LINENO
+
+  esac
+
+  if [ -r "$BASH_SOURCE_PATH/code-$option.json" ] ; then
+
+    cat "$HOME/.config/Code/User/settings.json" "$BASH_SOURCE_PATH/code-$option.json" \
+    | jq --slurp '.[0] * .[1]' \
+    | prettier --parser=json-stringify \
+    | sponge "$HOME/.config/Code/User/settings.json" \
+    || die "${BASH_SOURCE[0]}" $LINENO
+
+  fi
+
+done
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#

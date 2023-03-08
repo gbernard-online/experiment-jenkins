@@ -1,0 +1,38 @@
+#!/bin/bash
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+PROJECT_NAME=${PROJECT_NAME:=template}
+PROJECT_USER=${PROJECT_USER:=ghislain.bernard@gmail.com}
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+[ "$PROJECT_NAME" == "${PROJECT_NAME// }" ] || die "${BASH_SOURCE[0]}" $LINENO
+
+git --version || die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+if [ ! -d $PROJECT_NAME ] ; then
+
+  mkdir --verbose $PROJECT_NAME || die "${BASH_SOURCE[0]}" $LINENO
+  git init $PROJECT_NAME || die "${BASH_SOURCE[0]}" $LINENO
+
+  git -C $PROJECT_NAME config user.email $PROJECT_USER || die "${BASH_SOURCE[0]}" $LINENO
+
+  touch $PROJECT_NAME/README.md || die "${BASH_SOURCE[0]}" $LINENO
+  git -C $PROJECT_NAME add README.md || die "${BASH_SOURCE[0]}" $LINENO
+  git -C $PROJECT_NAME commit --message 'Insert '"'"'README.md'"'" || die "${BASH_SOURCE[0]}" $LINENO
+
+  git -C $PROJECT_NAME tag --annotate v0.0.0 --message 'version 0.0.0' || die "${BASH_SOURCE[0]}" $LINENO
+
+fi
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#

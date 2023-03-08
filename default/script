@@ -1,0 +1,20 @@
+#!/bin/bash
+
+[ "$BASH_SOURCE" != "${BASH_SOURCE// }" ] && exit 1
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die $BASH_SOURCE $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+[ $# -eq 0 ] && [ $UID -eq 0 ] || die $BASH_SOURCE $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+false || die $BASH_SOURCE $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#

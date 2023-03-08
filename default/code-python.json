@@ -1,0 +1,21 @@
+{
+  "files.associations": {
+    "*.yapf": "ini"
+  },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.formatting.provider": "yapf",
+  "python.linting.mypyArgs": [
+    "--ignore-missing-imports",
+    "--show-column-numbers"
+  ],
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintArgs": [
+    "--disable=F0401"
+  ],
+  "python.linting.pylintEnabled": true,
+  "python.terminal.activateEnvironment": false,
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "."
+  }
+}

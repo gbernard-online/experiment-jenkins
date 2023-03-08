@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "es2020"
+  },
+  "files": ["server.ts"]
+}

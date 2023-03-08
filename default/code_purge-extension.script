@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die "${BASH_SOURCE[0]}" $LINENO
+shopt -s lastpipe || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+[ ! -d "$HOME/.vscode" ] \
+|| rm --force --recursive "$HOME/.vscode" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+[ ! -d "$HOME/.vscode-server" ] \
+|| rm --force --recursive "$HOME/.vscode-server" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+[ ! -d "$HOME/.config/Code" ] \
+|| rm --force --recursive "$HOME/.config/Code" \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die "${BASH_SOURCE[0]}" $LINENO
+shopt -s lastpipe || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+dirname "${BASH_SOURCE[0]}" | read -r BASH_SOURCE_PATH || die "${BASH_SOURCE[0]}" $LINENO
+
+curl --version || die "${BASH_SOURCE[0]}" $LINENO
+git --version || die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+GITHUB_COMMENT=${GITHUB_COMMENT:=}
+GITHUB_EMAIL=${GITHUB_EMAIL:=$(git config user.email)}
+GITHUB_PRIVATE=${GITHUB_PRIVATE:=false}
+
+. "$BASH_SOURCE_PATH/github/$GITHUB_EMAIL.env" || die "${BASH_SOURCE[0]}" $LINENO
+
+curl --fail --header "Authorization: token $GITHUB_TOKEN" --show-error --silent https://api.github.com/user \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+GITHUB_REPOSITORY=$(basename $PWD)
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+curl --data '{"name":"'$GITHUB_REPOSITORY'","private":'$GITHUB_PRIVATE'}' \
+--fail --header "Authorization: token $GITHUB_TOKEN" --show-error --silent https://api.github.com/user/repos \
+|| die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+if git config remote.origin.url ; then
+  git remote remove origin || die "${BASH_SOURCE[0]}" $LINENO
+fi
+
+git remote add origin "$GITHUB_HOST:$GITHUB_USER/$GITHUB_REPOSITORY.git" || die "${BASH_SOURCE[0]}" $LINENO
+git push origin main || die "${BASH_SOURCE[0]}" $LINENO
+git push --tags || die "${BASH_SOURCE[0]}" $LINENO
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+if [ -n "$GITHUB_COMMENT" ] ; then
+  curl --data '{"description":"'"$GITHUB_COMMENT"'","name":"'$GITHUB_REPOSITORY'"}' \
+  --fail --header "Authorization: token $GITHUB_TOKEN" --request PATCH \
+  --show-error --silent "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPOSITORY" \
+  || die "${BASH_SOURCE[0]}" $LINENO
+fi
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
