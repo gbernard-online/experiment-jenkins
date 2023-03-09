@@ -1,0 +1,17 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: yq binary
+      ansible.builtin.get_url:
+        dest: /usr/local/bin/yq
+        force: yes
+        mode: +x
+        url: 'https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64'
+      register: result
+
+    - name: yq bash completion
+      ansible.builtin.shell: yq completion bash | tee /etc/bash_completion.d/yq
+      when: result.changed
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

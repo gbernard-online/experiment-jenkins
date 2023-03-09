@@ -1,0 +1,313 @@
+#!/bin/bash
+
+function die {
+  [ $# -eq 2 ] && echo "Died at $1 line $2." >&2
+  exit 1
+}
+
+set -e -o pipefail -u -x || die "${BASH_SOURCE[0]}" $LINENO
+
+[ $# -eq 0 ] || die "${BASH_SOURCE[0]}" $LINENO
+[ $UID -eq 0 ] || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#
+
+echo YES >>/tmp/test
+
+# echo 'Server = http://archlinux.arkena.net/archive/repos/2022/07/20/$repo/os/$arch' | tee mirrorlist \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# echo '[options]
+# Architecture = auto
+# SigLevel = Never
+
+# [core]
+# Include = mirrorlist
+
+# [extra]
+# Include = mirrorlist
+
+# [community]
+# Include = mirrorlist' | tee pacman.conf \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# pacman --sync --config=pacman.conf --noconfirm --noprogressbar --refresh wget \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# wget --cut-dirs=1 --execute=robots=off --mirror --no-host-directories --no-parent --quiet --timestamping \
+# http://router.qemu.lan:8008/archlinux/install/ \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# [ -d /sys/firmware/efi ] && BOOTLOADER=efi64 || BOOTLOADER=bios
+# [ -r install/boot/$BOOTLOADER/pdisk ] && . install/boot/$BOOTLOADER/pdisk || die "${BASH_SOURCE[0]}" $LINENO
+
+# mkdir --verbose btrfs || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# [ ${#PARTITIONS[@]} -eq 3 ] || die "${BASH_SOURCE[0]}" $LINENO
+
+# sfdisk --color=never --quiet /dev/sda <install/boot/$BOOTLOADER/sfdisk.cfg && sleep 1 \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# mkfs.vfat /dev/disk/by-partuuid/${PARTITIONS[0]} || die "${BASH_SOURCE[0]}" $LINENO
+# mkfs.btrfs --force --metadata=single /dev/disk/by-partuuid/${PARTITIONS[1]} || die "${BASH_SOURCE[0]}" $LINENO
+# mkswap /dev/disk/by-partuuid/${PARTITIONS[2]} || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# mount --verbose  /dev/disk/by-partuuid/${PARTITIONS[1]} btrfs || die "${BASH_SOURCE[0]}" $LINENO
+
+# btrfs subvolume create btrfs/@root || die "${BASH_SOURCE[0]}" $LINENO
+# btrfs subvolume create btrfs/@home || die "${BASH_SOURCE[0]}" $LINENO
+
+# mount --options=subvol=@root --verbose /dev/disk/by-partuuid/${PARTITIONS[1]} /mnt \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# install --directory --verbose /mnt/boot || die "${BASH_SOURCE[0]}" $LINENO
+# install --directory --verbose /mnt/home || die "${BASH_SOURCE[0]}" $LINENO
+
+# mount --verbose /dev/disk/by-partuuid/${PARTITIONS[0]} /mnt/boot || die "${BASH_SOURCE[0]}" $LINENO
+# mount --options=subvol=@home --verbose /dev/disk/by-partuuid/${PARTITIONS[1]} /mnt/home \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# install --directory --verbose /mnt/var/lib/pacman || die "${BASH_SOURCE[0]}" $LINENO
+
+# install --verbose /usr/bin/pacstrap . || die "${BASH_SOURCE[0]}" $LINENO
+# sed --in-place= 's/ -Sy / -S /' pacstrap || die "${BASH_SOURCE[0]}" $LINENO
+
+# LC_ALL=C pacstrap -C pacman.conf -G -M /mnt --noprogressbar awk pacman || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# echo archlinux >/mnt/etc/hostname || die "${BASH_SOURCE[0]}" $LINENO
+
+# install --mode=644 --suffix=.default --verbose install/pacman/mirrorlist /mnt/etc/pacman.d/ \
+# || die "${BASH_SOURCE[0]}" $LINENO
+# install --mode=644 --suffix=.default --verbose install/pacman/pacman.conf /mnt/etc/ \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt pacman-key --init --nocolor || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt pacman-key --populate --nocolor || die "${BASH_SOURCE[0]}" $LINENO
+# rm --verbose /mnt/etc/pacman.d/gnupg/pubring.gpg~ || die "${BASH_SOURCE[0]}" $LINENO
+
+# # #----------------------------------------------------------------------------------------------------------------------#
+
+# arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar systemd \
+# || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar systemd-sysvcompat \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/systemd/system.conf.default ] \
+# # || install --mode=644 --verbose install/system.conf /mnt/etc/systemd \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/var/lib/systemd/coredump.default ] \
+# # || install --directory --verbose /mnt/var/lib/systemd/coredump.default \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/var/log.default ] \
+# # || install --directory --verbose /mnt/var/log.default \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/var/log.default/audit ] \
+# # || mkdir --mode 700 --verbose /mnt/var/log.default/audit \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/var/log.default/journal ] \
+# # || cp --preserve --recursive --verbose /mnt/var/log/journal /mnt/var/log.default/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/var/log.default/old ] \
+# # || mkdir --verbose /mnt/var/log.default/old \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # #----------------------------------------------------------------------------------------------------------------------#
+
+# for package in btrfs-progs dnsutils gzip grep iputils iproute2 logrotate man-db man-pages polkit procps-ng \
+# qemu-guest-agent sed ; do
+
+#   arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar $package \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+# done
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar mkinitcpio \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/mkinitcpio.conf.default ] \
+# # || install --mode=644 --verbose install/mkinitcpio.conf /mnt/etc/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar dash || die "${BASH_SOURCE[0]}" $LINENO
+
+# install --mode=700 --verbose install/init /mnt/ || die "${BASH_SOURCE[0]}" $LINENO
+
+# if [ $BOOTLOADER == efi64 ] ; then
+
+#   arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar efibootmgr \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+#   arch-chroot /mnt bootctl --path=/boot install \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+#   install --mode=644 --suffix=.default --verbose install/boot/efi64/archlinux.conf /mnt/boot/loader/entries/ \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+#   install --mode=644 --suffix=.default --verbose install/boot/efi64/loader.conf /mnt/boot/loader/ \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+# else
+
+#   arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar syslinux \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+#   install --mode=644 --suffix=.default --verbose install/boot/bios/syslinux.cfg /mnt/boot/syslinux/ \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+#   arch-chroot /mnt syslinux-install_update -a -i -m \
+#   || die "${BASH_SOURCE[0]}" $LINENO
+
+# fi
+
+# install --mode=644 --suffix=.default --verbose install/boot/$BOOTLOADER/fstab /mnt/etc/ \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# # || install --mode=644 --verbose install/networkd/resolved.conf /mnt/etc/systemd/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# install --mode=644 --verbose install/networkd/en.network /mnt/etc/systemd/network/ \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt systemctl enable systemd-homed || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt systemctl enable systemd-networkd || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt systemctl enable systemd-resolved || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt systemctl enable systemd-timesyncd || die "${BASH_SOURCE[0]}" $LINENO
+
+# rm --verbose /mnt/etc/resolv.conf || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt ln --relative --symbolic --verbose /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf \
+# || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt systemctl enable qemu-guest-agent || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# # [ -d /mnt/etc/skel.default ] || mv --verbose /mnt/etc/skel{,.default} || die "${BASH_SOURCE[0]}" $LINENO
+# # [ -d /mnt/etc/skel ] || mkdir --verbose /mnt/etc/skel || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/skel/.profile ] \
+# # || install --mode=644 --verbose install/profile-user /mnt/etc/skel/.profile \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt useradd --create-home user || die "${BASH_SOURCE[0]}" $LINENO
+# arch-chroot /mnt chpasswd <install/chpasswd || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# install --directory --mode=700 --verbose /mnt/root/.ssh || die "${BASH_SOURCE[0]}" $LINENO
+# install --mode=600 --verbose install/ssh/authorized_keys /mnt/root/.ssh/ || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# # if [ -d install/ssh/ ] ; then
+
+# #   [ -r /mnt/etc/ssh/ssh_host_dsa_key ] \
+# #   || install --mode=600 --verbose install/ssh/ssh_host_dsa_key /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_ecdsa_key ] \
+# #   || install --mode=600 --verbose install/ssh/ssh_host_ecdsa_key /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_ed25519_key ] \
+# #   || install --mode=600 --verbose install/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_rsa_key ] \
+# #   || install --mode=600 --verbose install/ssh/ssh_host_rsa_key /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_dsa_key.pub ] \
+# #   || install --mode=644 --verbose install/ssh/ssh_host_dsa_key.pub /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_ecdsa_key.pub ] \
+# #   || install --mode=644 --verbose install/ssh/ssh_host_ecdsa_key.pub /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_ed25519_key.pub ] \
+# #   || install --mode=644 --verbose install/ssh/ssh_host_ed25519_key.pub /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   [ -r /mnt/etc/ssh/ssh_host_rsa_key.pub ] \
+# #   || install --mode=644 --verbose install/ssh/ssh_host_rsa_key.pub /mnt/etc/ssh/ \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# #   arch-chroot /mnt systemctl is-enabled sshd \
+# #   || arch-chroot /mnt systemctl enable sshd \
+# #   || die "${BASH_SOURCE[0]}" $LINENO
+
+# # fi
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# # [ -r /mnt/etc/profile.d.default ] \
+# # || mv --verbose /mnt/etc/profile.d{,.default} \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -d /mnt/etc/profile.d ] \
+# # || mkdir --verbose /mnt/etc/profile.d \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/locale.conf.default ] \
+# # || install --mode=644 --verbose install/locale/locale.conf /mnt/etc/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/locale.gen.default ] \
+# # || install --mode=644 --verbose install/locale/locale.gen /mnt/etc/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /usr/lib/locale/locale-archive -a /mnt/usr/lib/locale/locale-archive -nt /mnt/etc/locale.gen ] \
+# # || arch-chroot /mnt locale-gen \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/profile.d/locale.sh ] \
+# # || install --mode=644 --verbose install/locale.sh /mnt/etc/profile.d/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ ! -r /mnt/etc/passwd- ] \
+# # || (arch-chroot /mnt pwck --sort && arch-chroot /mnt grpck --sort && rm --force --verbose /mnt/etc/*-) \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# arch-chroot /mnt pacman --sync --color=never --noconfirm --noprogressbar linux || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ -r /mnt/etc/mkinitcpio.d/linux.preset.default ] \
+# # || install --mode=644 --verbose install/linux.preset /mnt/etc/mkinitcpio.d/ \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# # [ ! -r /mnt/boot/initramfs-linux-fallback.img ] \
+# # || rm --verbose /mnt/boot/initramfs-linux-fallback.img \
+# # || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# umount --verbose /mnt/boot || die "${BASH_SOURCE[0]}" $LINENO
+# umount --verbose /mnt/home || die "${BASH_SOURCE[0]}" $LINENO
+# umount --verbose /mnt || die "${BASH_SOURCE[0]}" $LINENO
+
+# umount --verbose btrfs || die "${BASH_SOURCE[0]}" $LINENO
+
+# #----------------------------------------------------------------------------------------------------------------------#
+
+# sync || die "${BASH_SOURCE[0]}" $LINENO
+# reboot || die "${BASH_SOURCE[0]}" $LINENO
+
+#--------------------------------------------- ghislain.bernard@gmail.com ---------------------------------------------#

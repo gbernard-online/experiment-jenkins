@@ -1,0 +1,9 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+  ignore_unreachable: yes
+
+  tasks:
+    - name: network ping
+      ansible.builtin.ping:
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

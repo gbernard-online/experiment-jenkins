@@ -1,0 +1,16 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+  vars:
+    php_version: 8.1
+
+  tasks:
+    - name: apt vim package
+      ansible.builtin.apt:
+        name: vim
+
+    - name: vimrc local file
+      ansible.builtin.copy:
+        dest: /etc/vim/
+        src: vim/vimrc.local
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

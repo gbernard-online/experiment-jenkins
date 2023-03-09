@@ -1,0 +1,14 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: apt screenfetch package
+      ansible.builtin.apt:
+        name: screenfetch
+
+    - name: screenfetch profile
+      ansible.builtin.copy:
+        dest: /etc/profile.d/
+        src: screenfetch/screenfetch.sh
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

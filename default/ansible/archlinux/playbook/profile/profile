@@ -1,0 +1,10 @@
+[ "$BASH" ] && [ "$PS1" ] && [ -z ${POSIXLY_CORRECT+x} ] && [ "${0#-}" != sh ] && [ -r /etc/bash.bashrc ] && . /etc/bash.bashrc
+
+export EDITOR=vim
+
+if [ -d /etc/profile.d ] ; then
+  for script in /etc/profile.d/*.sh ; do
+    [ -r "$script" ] && . "$script"
+  done
+  unset script
+fi

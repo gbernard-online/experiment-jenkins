@@ -1,0 +1,21 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: apt tmux package
+      ansible.builtin.apt:
+        name: tmux
+
+    - name: tmux root file
+      ansible.builtin.copy:
+        dest: /root/.tmux.conf
+        src: tmux/root.conf
+
+    - name: tmux user file
+      ansible.builtin.copy:
+        dest: /home/user/.tmux.conf
+        group: user
+        owner: user
+        src: tmux/user.conf
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

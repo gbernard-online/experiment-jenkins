@@ -1,0 +1,11 @@
+--- sudoers	2021-11-14 22:29:18.916958716 +0000
++++ sudoers.new	2021-11-14 22:30:20.531154335 +0000
+@@ -20,7 +20,7 @@
+ root	ALL=(ALL:ALL) ALL
+ 
+ # Allow members of group sudo to execute any command
+-%sudo	ALL=(ALL:ALL) ALL
++%sudo	ALL=(ALL:ALL) NOPASSWD: ALL
+ 
+ # See sudoers(5) for more information on "@include" directives:
+ 

@@ -1,0 +1,48 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    # - name: Install package foo from repo
+    #   community.general.pacman:
+    #     name: foo
+    #     state: present
+
+    # - name: test default profile
+    #   ansible.builtin.stat:
+    #     path: /etc/profile.default
+    #   failed_when: no
+    #   register: result
+
+    # - name: copy default profile
+    #   ansible.builtin.copy:
+    #     dest: /etc/profile.default
+    #     remote_src: yes
+    #     src: /etc/profile
+    #   when: not result.stat.exists
+
+    # - name: check default profile
+    #   ansible.builtin.copy:
+    #     dest: /etc/profile.default
+    #     src: profile/profile.default
+    #   check_mode: yes
+    #   failed_when: result.changed
+    #   register: result
+
+    # - name: copy profile
+    #   ansible.builtin.copy:
+    #     dest: /etc/profile
+    #     src: profile/profile
+
+    # - name: check default bashrc
+    #   ansible.builtin.copy:
+    #     dest: /etc/bash.bashrc.default
+    #     src: bash/bash.bashrc.default
+    #   check_mode: yes
+    #   diff: yes
+
+    # - name: copy bashrc
+    #   ansible.builtin.copy:
+    #     dest: /etc/bash.bashrc
+    #     src: bash/bash.bashrc
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

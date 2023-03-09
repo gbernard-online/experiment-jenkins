@@ -1,0 +1,11 @@
+--- console-setup	2022-03-02 10:51:56.413131795 +0000
++++ console-setup.new	2022-03-02 11:04:55.810996773 +0000
+@@ -7,7 +7,7 @@
+ CHARMAP="UTF-8"
+ 
+ CODESET="guess"
+-FONTFACE="Fixed"
++FONTFACE="TerminusBold"
+ FONTSIZE="8x16"
+ 
+ VIDEOMODE=

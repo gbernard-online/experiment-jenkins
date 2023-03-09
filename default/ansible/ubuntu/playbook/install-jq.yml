@@ -1,0 +1,9 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: apt jq package
+      ansible.builtin.apt:
+        name: jq
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

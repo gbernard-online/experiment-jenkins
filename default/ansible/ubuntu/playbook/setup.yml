@@ -1,0 +1,50 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: apt full
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: full
+
+    - name: apt packages
+      ansible.builtin.apt:
+        name: '{{ item }}'
+      loop:
+        - git
+        - patch
+
+    - name: console patch
+      ansible.builtin.patch:
+        basedir: /etc/default
+        src: console/console-setup.patch
+      register: result
+
+    - name: console update
+      ansible.builtin.shell: setupcon
+      when: result.changed
+
+    - name: inputrc patch
+      ansible.builtin.patch:
+        basedir: /etc
+        src: inputrc/inputrc.patch
+
+    - name: sudo patch
+      ansible.builtin.patch:
+        basedir: /etc
+        src: sudo/sudoers.patch
+
+    - name: user group
+      ansible.builtin.user:
+        append: yes
+        groups: sudo
+        name: user
+
+    - name: user authorized key
+      ansible.posix.authorized_key:
+        key: '{{ item }}'
+        user: user
+      with_file:
+        - ssh/ansible@virtual.lan.pub
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

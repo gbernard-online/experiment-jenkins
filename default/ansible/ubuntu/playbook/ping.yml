@@ -1,0 +1,8 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: network ping
+      ansible.builtin.ping:
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #

@@ -1,0 +1,8 @@
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
+- gather_facts: no
+  hosts: all
+
+  tasks:
+    - name: vim script
+      ansible.builtin.script: vim/script
+# --------------------------------------------- ghislain.bernard@gmail.com ------------------------------------------- #
