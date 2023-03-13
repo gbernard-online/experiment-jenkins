@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'registry.virtware.top/alpine-gcc'
             registryCredentialsId 'registry.virtware.top'
+            registryUrl 'https://registry.virtware.top'
         }
     }
     options {
