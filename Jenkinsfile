@@ -1,5 +1,10 @@
 pipeline {
-    agent { docker { image 'registry.virtware.top/alpine-gcc', 'registry.virtware.top' } }
+    agent {
+        docker {
+            image 'registry.virtware.top/alpine-gcc'
+            registryCredentialsId 'registry.virtware.top'
+        }
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
         skipDefaultCheckout()
